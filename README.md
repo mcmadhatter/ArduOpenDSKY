@@ -21,10 +21,10 @@ The following parts of the OpenDSKY are currently supported
 - Sound
 - 7 Segment Displays ( though simulation of the 7 Segment display is available via the serial port)
 
-###### Development environment
+# Development environment
 This project has been developed with PlatformIO  - see https://platformio.org/get-started for more information on installing platformIO.
 
-###### Required libraries
+# Required libraries
 The following libraries are required:
 
 - TinyGPSPlus by Mikal Hart, this should be available from here https://github.com/mikalhart/TinyGPSPlus
@@ -38,18 +38,18 @@ The following libraries are required:
 
 All of the above libraries can be installed by the platformIO library manager.
 
-###### Calling up a program
+## Calling up a program
 Items in the program table are called up using at least a verb, and optionally a noun and some data. To try out your hardware, try pressing
 **Verb 3 5 Enter** on the OpenDSKY keyboard, this should then start the bulb and 7 segment display test.
 
 
-###### Adding your own programs
-1. Add a new entry to the ProgramTable in Program.cpp . As a minimum this should at least contain a VProgramNumber (verb number) and a program. In the example below the V37N36SetAlarmProg program will called when verb 37 and noun 36 are entered, it can accept data via the V37N36GiveData function, and can provide data for the 7 segment display via the TimeGetDisplayData function. By default the program is not running.
+## Adding your own programs
+1. Add a new entry to the ProgramTable in Program.cpp . As a minimum this should at least contain a VProgramNumber (verb number) and a program. In the example below the V37N36SetAlarmProg program will called when verb 37 and noun 36 are entered, it can accept data via the V37N36GiveData function, and can provide data for the 7 segment display via the TimeGetDisplayData function. By default the program is not running, and anything that is NULL means that this program does not support that feature.
 ```
-{ 37,  36,        &V37N36SetAlarmProg,    NULL,          NULL,         &V37N36GiveData,   &TimeGetDisplayData,    NOT_RUNNING}, /* Set Alarm Program */}
+{ 37,  36, &V37N36SetAlarmProg, NULL,  NULL, &V37N36GiveData, &TimeGetDisplayData, NOT_RUNNING}, /* Set Alarm Program */}
 ```
 2. Create the functions you have just added to the program table. For examples, see TimeProgram.cpp
 
-###### Useful links
+# Useful links
 - This contains some really useful information on the verbs nouns and programs in the real Apollo DSKY https://www.ibiblio.org/apollo/ForDummies.html
 - Open DSKY hardware page  https://opendsky.com
