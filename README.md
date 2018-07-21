@@ -1,7 +1,7 @@
 # ArduOpenDSKY
 Software for the Arduino Based Open DKSY  
 
-OpenDSKY is a trademark of S&T GeoTronics LLC  https://opendsky.com https://opendsky.com
+OpenDSKY is a trademark of S&T GeoTronics LLC  https://opendsky.com
 
 This is designed to run on OpenDSKy hardware, it allows multiple programs to be
 run at the same time, though only one program can be in the foreground and thus
@@ -98,7 +98,7 @@ ProgramRunStateEnum V16N36ShowRTCTime(ProgramCallStateEnum call)
 		}
 		return NOT_RUNNING;
 }
-``
+```
 
 # Useful links
 - This contains some really useful information on the verbs nouns and programs in the real Apollo DSKY https://www.ibiblio.org/apollo/ForDummies.html
