@@ -34,7 +34,7 @@
 #include <helper_3dmath.h>
 
 /* Open DSKY headers */
-#include "Main.h"
+#include "main.h"
 #include "Neopixels.h"
 #include "IMU.h"
 #include "SevenSegment.h"

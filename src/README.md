@@ -18,11 +18,13 @@ The following parts of the OpenDSKY are currently supported
 
 
 ## Not Currently Supported Modules
-- Sound
+- Sound  (currently trying to make a way for this to be easy to use for the end user)
 - 7 Segment Displays ( though simulation of the 7 Segment display is available via the serial port)
 
 # Development environment
 This project has been developed with PlatformIO  - see https://platformio.org/get-started for more information on installing platformIO.
+If you want to use the arduino development environment instead, then rename the src folder to ArduOpenDSKY and it should be possible to open
+the .ino file and compile/download with the Arduino IDE.
 
 # Required libraries
 The following libraries are required:
