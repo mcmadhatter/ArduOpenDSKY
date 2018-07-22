@@ -35,13 +35,13 @@
 
 /* Open DSKY headers */
 #include "Main.h"
-#include "Drivers/Neopixels.h"
-#include "Drivers/IMU.h"
-#include "Drivers/SevenSegment.h"
-#include "Drivers/RTC.h"
-#include "Drivers/Keyboard.h"
-#include "Drivers/Program.h"
-#include "Drivers/GPS.h"
+#include "Neopixels.h"
+#include "IMU.h"
+#include "SevenSegment.h"
+#include "RTC.h"
+#include "Keyboard.h"
+#include "Program.h"
+#include "GPS.h"
 
 
 /* ThreadController that will controll all threads */

@@ -31,9 +31,9 @@
 #include <ThreadController.h>
 #include <TimerOne.h>
 
-#include "../Drivers/Program.h"
-#include "../Drivers/RTC.h"
-#include "../main.h"
+#include "Program.h"
+#include "RTC.h"
+#include "main.h"
 
 
 Thread* rtcThread = new Thread();

@@ -30,9 +30,9 @@
 #include <TimerOne.h>
 
 /* Open DSKY headers */
-#include "../Drivers/Program.h"
-#include "../Drivers/Keyboard.h"
-#include "../main.h"
+#include "Program.h"
+#include "Keyboard.h"
+#include "main.h"
 
 #define SERIAL_KEYBOARD
 

@@ -33,7 +33,7 @@
 /* Open DSKY headers */
 #include "Program.h"
 #include "SevenSegment.h"
-#include "../main.h"
+#include "main.h"
 
 /* VT100 code for clearing the screen */
 #define CLS  "\033[2J"

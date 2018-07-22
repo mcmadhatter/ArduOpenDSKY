@@ -38,8 +38,8 @@
 #include <ThreadController.h>
 #include <TimerOne.h>
 
-#include "../Drivers/IMU.h"
-#include "../main.h"
+#include "IMU.h"
+#include "main.h"
 
 
 #define INTERRUPT_PIN 2

@@ -40,8 +40,8 @@
 #include <digitalWriteFast.h>
 
 /* Open DSKY headers */
-#include "../main.h"
-#include "../Drivers/GPS.h"
+#include "main.h"
+#include "GPS.h"
 
 TinyGPSPlus gps;
 

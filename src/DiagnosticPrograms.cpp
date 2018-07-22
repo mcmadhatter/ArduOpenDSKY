@@ -26,10 +26,10 @@
 #include <TimerOne.h>
 
 /* Open DSKY headers */
-#include "../Drivers/Neopixels.h"
-#include "../Drivers/Program.h"
-#include "../Programs/DiagnosticPrograms.h"
-#include "../main.h"
+#include "Neopixels.h"
+#include "Program.h"
+#include "DiagnosticPrograms.h"
+#include "main.h"
 
 
 Thread* V35Thread = NULL;

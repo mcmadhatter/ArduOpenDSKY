@@ -28,13 +28,13 @@
 #include <TimerOne.h>
 
 /* Open DSKY headers */
-#include "../Drivers/SevenSegment.h"
-#include "../Drivers/Neopixels.h"
-#include "../Drivers/Program.h"
-#include "../Drivers/RTC.h"
-#include "../Drivers/GPS.h"
-#include "../Programs/DiagnosticPrograms.h"
-#include "../main.h"
+#include "SevenSegment.h"
+#include "Neopixels.h"
+#include "Program.h"
+#include "RTC.h"
+#include "GPS.h"
+#include "DiagnosticPrograms.h"
+#include "main.h"
 
 
 #define HOURS_IDX 0U

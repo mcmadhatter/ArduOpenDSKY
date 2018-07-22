@@ -23,7 +23,7 @@
 #define PROGRAM_H
 
 
-#include "../Drivers/SevenSegment.h"
+#include "SevenSegment.h"
 
 
 #define NOT_USED -1

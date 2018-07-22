@@ -30,9 +30,9 @@
 /* Open DSKY headers */
 #include "Keyboard.h"
 #include "Program.h"
-#include "../Programs/DiagnosticPrograms.h"
-#include "../Programs/TimePrograms.h"
-#include "../main.h"
+#include "DiagnosticPrograms.h"
+#include "TimePrograms.h"
+#include "main.h"
 
 #define MAX_NUMBER_ENTRIES 10
 #define DEBUG
