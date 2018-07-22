@@ -36,4 +36,4 @@ typedef struct SEVEN_SEGMENT_DISPLAY_STRUCT
 
 
 extern void SevenSegmentSetup(void);
-#endif /8SEVEN_SEGMENT_H 8/
+#endif /*SEVEN_SEGMENT_H */

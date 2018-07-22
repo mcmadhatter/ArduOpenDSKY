@@ -170,7 +170,7 @@ ProgramRunStateEnum V16N43ShowGPSPosition(ProgramCallStateEnum call)
 				{
 						V16N43Thread = new Thread();
 						V16N43Thread->onRun(V16N43ThreadCallback);
-						V16N43Thread->setInterval(50s0);
+						V16N43Thread->setInterval(500);
 						controll.add(V16N43Thread);
 						ActiveProgram = 1;
 						return FOREGROUND;

@@ -37,7 +37,7 @@
 
 /* VT100 code for clearing the screen */
 #define CLS  "\033[2J"
-#define SERIAL_DEBUG
+//#define SERIAL_DEBUG
 
 Thread* sevenSegmentThread = new Thread();
 
@@ -58,7 +58,98 @@ void SevenSegmentThreadCallback()
 
 		if(displayData != NULL)
 		{
-#ifdef SERIAL_DEBUG
+#ifndef SERIAL_DEBUG
+
+/* I have no idea if this 7 segment code works yet, as I am still waiting on my
+   delivery of the 7 segment displays. I had a request to show my thoughts on how
+   it would be implemented - so here it is. I have not idea of the indexs are
+   correct, or even if there are extra steps needed aside from setting digits. I
+     would be much obliged for a bit of help from someone who has their 7 segment
+     displays*/
+				for(uint8_t idx = 0U; idx < 4U; idx++)
+				{
+						lc.clearDisplay(idx);
+
+				}
+				lc.setChar(0, 0, (displayData->Prog%10)&0xF, false);
+				lc.setChar(0, 1, (displayData->Prog/10)&0xF, false);
+				lc.setChar(0, 2, (displayData->Noun%10)&0xF, false);
+				lc.setChar(0, 3, (displayData->Noun/10)&0xF, false);
+				lc.setChar(0, 4, (displayData->Verb%10)&0xF, false);
+				lc.setChar(0, 5, (displayData->Verb/10)&0xF, false);
+
+				if((0x20 & displayData->R1DigitShowMask) == 0x20)
+				{
+						if(displayData->R1 < 0 )
+						{
+								lc.setChar(1, 5, '-', false);
+						}
+						else
+						{
+								lc.setChar(1, 5, '+', false);
+						}
+				}
+				for (int i = 0; i < 6; i++)
+				{
+						if(((1 << i)  & displayData->R1DigitShowMask) != 1)
+						{
+								lc.setChar(1, (5-i), (displayData->R1 & 0xf), false);
+								displayData->R1/=10;
+						}
+						else
+						{
+								lc.setChar(1, (5-i), ' ', false);
+						}
+				}
+				if((0x20 & displayData->R2DigitShowMask) == 0x20)
+				{
+						if(displayData->R2 < 0 )
+						{
+								lc.setChar(2, 5, '-', false);
+						}
+						else
+						{
+								lc.setChar(2, 5, '+', false);
+						}
+				}
+				for (int i = 0; i < 6; i++)
+				{
+						if(((1 << i)  & displayData->R2DigitShowMask) != 0)
+						{
+								lc.setChar(2, (5-i), (displayData->R2 & 0xf), false);
+								displayData->R2/=10;
+						}
+						else
+						{
+								lc.setChar(2, (5-i), ' ', false);
+						}
+				}
+				if((0x20 & displayData->R3DigitShowMask) == 0x20)
+				{
+						if(displayData->R3 < 0 )
+						{
+								lc.setChar(3, 5, '-', false);
+						}
+						else
+						{
+								lc.setChar(3, 5, '+', false);
+						}
+				}
+				for (int i = 0; i < 5; i++)
+				{
+						if(((1 << i)  & displayData->R3DigitShowMask) != 0)
+						{
+								lc.setChar(3, (5-i), (displayData->R3 & 0xf), false);
+								displayData->R3/=10;
+						}
+						else
+						{
+								lc.setChar(3, (5-i), ' ', false);
+						}
+				}
+
+
+#else
 #ifdef VT100
 				Serial.print(CLS);
 #endif
@@ -127,9 +218,18 @@ void SevenSegmentThreadCallback()
  */
 void SevenSegmentSetup(void)
 {
+		/* intialise the 7 segment drivers */
+		for(uint8_t idx = 0U; idx < 4U; idx++)
+		{
+				lc.shutdown(idx,false);
+				lc.setIntensity(idx,8);
+				lc.clearDisplay(idx);
+		}
+
 
 		sevenSegmentThread->onRun(SevenSegmentThreadCallback);
 		sevenSegmentThread->setInterval(250);
 		controll.add(sevenSegmentThread);
+
 
 }
