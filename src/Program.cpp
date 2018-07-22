@@ -32,6 +32,7 @@
 #include "Program.h"
 #include "DiagnosticPrograms.h"
 #include "TimePrograms.h"
+#include "PositionPrograms.h"
 #include "main.h"
 
 #define MAX_NUMBER_ENTRIES 10
@@ -79,7 +80,10 @@ ProgramStruct ProgramTable[] =
 		{ 37,  36,        &V37N36SetAlarmProg,      &V37N36GiveData,     &TimeGetDisplayData,     NOT_RUNNING}, /* Set Alarm Program */
 		{ 16,  36,        &V16N36ShowRTCTime,       NULL,                &TimeGetDisplayData,     NOT_RUNNING}, /* Show RTC Time on 7 segment */
 		{ 25,  36,        &V25N36LoadManualTime,    &V25N36GiveData,     &TimeGetDisplayData,     NOT_RUNNING}, /* Set RTC manually */
-		{ 26,  36,        &V26N36LoadGPSTime,       &V26N36GiveData,     &TimeGetDisplayData,     NOT_RUNNING}  /* Set RTC from GPS */
+		{ 26,  36,        &V26N36LoadGPSTime,       &V26N36GiveData,     &TimeGetDisplayData,     NOT_RUNNING}, /* Set RTC from GPS */
+		{ 16,  43,        &V16N43ShowGPSPosition,   NULL,                &PositionGetDisplayData, NOT_RUNNING}, /* Show GPS poistion Data */
+		{ 16,  29,        &V16N29ShowIMUGyro,       NULL,                &PositionGetDisplayData, NOT_RUNNING}, /* Show IMU Gyro Data */
+		{ 16,  30,        &V16N30ShowIMUAcel,       NULL,                &PositionGetDisplayData, NOT_RUNNING}  /* Show IMU Acceloromter Data */
 };
 
 #define NUM_PROG_TABLE_ENTRIES  (sizeof(ProgramTable)/sizeof(ProgramStruct))

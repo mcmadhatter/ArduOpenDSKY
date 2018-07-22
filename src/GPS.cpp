@@ -41,6 +41,7 @@
 
 /* Open DSKY headers */
 #include "main.h"
+#include "Neopixels.h"
 #include "GPS.h"
 
 TinyGPSPlus gps;
@@ -96,6 +97,7 @@ void GPSSetup(void)
 		GPSThread->onRun(GPSThreadCallback);
 		GPSThread->setInterval(20);
 		controll.add(GPSThread);
+		NeoPixelSetState(GIMBAL_LOCK_PIXEL,WARM_WHITE_COLOUR,PIXEL_OFF);
 }
 
 /**
@@ -156,6 +158,10 @@ void GPSThreadCallback(void)
 				GPSData.Altitude = gps.altitude.feet();
 				GPSData.Speed= gps.speed.mph();
 				GPSData.Course= gps.course.deg();
+
+
+				NeoPixelSetState(GIMBAL_LOCK_PIXEL,WARM_WHITE_COLOUR,PIXEL_ON);
+
 
 #ifdef DEBUG
 				displayInfo();
