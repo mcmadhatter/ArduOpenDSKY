@@ -46,10 +46,17 @@ Items in the program table are called up using at least a verb, and optionally a
 
 ## Supported Programs
 
-Name |Description|Verb|Noun|Data
+Name |Description|Verb|Noun|Data Entry
 ------|-----------|----|----|------
+IMU Gyro| Shows to IMU Gyro Data on the 7 segment Display|16|29|Not Used
+IMU Accelerometer | Shows to IMU Accelerometer Data on the 7 segment Display|16|30|Not Used
+Current time | Shows the current time from the RTC on the 7 segment Display|16|36|Not Used
+GPS Position | Shows the openDSKy Latitude (in degrees) Longitude (in degrees) and Altitude (in feet) on the 7 segment Display|16|43| Not Used
+Bring To Foreground| Brings the program specified in the data entry phase to the Foreground | 30 | Not Used | Verb Number **Enter**  Noun Number **Enter**
+Reset| Resets the program specified in the data entry phase | 32 | Not Used | Verb Number **Enter**  Noun Number
+Terminate| Terminates the program specified in the data entry phase | 34 | Not Used | Verb Number **Enter**  Noun Number
 Bulb Test| Tests all of the Neopixels and 7 Segments| 35 | Not Used | Not Used
-Bring To Foreground| Brings the specified program to the Foreground | 30 | Not Used | Verb Number <enter> Noun Number <enter>
+
 
 ## Adding your own programs
 1. Add a new entry to the ProgramTable in Program.cpp . As a minimum this should at least contain a VProgramNumber (verb number) and a program. In the example below the V37N36SetAlarmProg program will called when verb 37 and noun 36 are entered, it can accept data via the V37N36GiveData function, and can provide data for the 7 segment display via the TimeGetDisplayData function. By default the program is not running, and anything that is NULL means that this program does not support that feature.
