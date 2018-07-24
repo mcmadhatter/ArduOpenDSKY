@@ -44,6 +44,12 @@ All of the above libraries can be installed by the platformIO library manager.
 Items in the program table are called up using at least a verb, and optionally a noun and some data. To try out your hardware, try pressing
 **Verb 3 5 Enter** on the OpenDSKY keyboard, this should then start the bulb and 7 segment display test.
 
+## Supported Programs
+
+Name |Description|Verb|Noun|Data
+------|-----------|----|----|------
+Bulb Test| Tests all of the Neopixels and 7 Segments| 35 | Not Used | Not Used
+Bring To Foreground| Brings the specified program to the Foreground | 30 | Not Used | Verb Number <enter> Noun Number <enter>
 
 ## Adding your own programs
 1. Add a new entry to the ProgramTable in Program.cpp . As a minimum this should at least contain a VProgramNumber (verb number) and a program. In the example below the V37N36SetAlarmProg program will called when verb 37 and noun 36 are entered, it can accept data via the V37N36GiveData function, and can provide data for the 7 segment display via the TimeGetDisplayData function. By default the program is not running, and anything that is NULL means that this program does not support that feature.
