@@ -65,6 +65,7 @@ typedef struct PROGRAM_STRUCT
 extern ProgramStruct ProgramTable[];
 extern void ProgramSetup(void);
 extern void ProgramTask(void);
+extern bool GiveNumbersToProgram(int32_t number);
 extern void ThreadDoNothing(void);
 extern bool SetProgram(int16_t VerbNumber, int16_t NounNumber, ProgramCallStateEnum callState);
 extern SevenSegmentDisplayStruct* ProgramGetDisplayData(void);

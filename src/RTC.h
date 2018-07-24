@@ -53,5 +53,5 @@ extern void RtcSetDay(uint8_t day);
 extern void RTCSetup(void);
 extern void RtcSetDateTime(uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second);
 extern void RtcGetDateTime(uint16_t* year, uint8_t* month, uint8_t* day, uint8_t* hour, uint8_t* minute, uint8_t* second);
-extern void RtcSetAlarmProgram(uint8_t day, uint8_t hour, uint8_t minute, uint8_t second, uint16_t verb, uint16_t noun,  uint8_t repeat);
+extern void RtcSetAlarmProgram(uint8_t day, uint8_t hour, uint8_t minute, uint8_t second, uint16_t verb, uint16_t noun, int32_t progData,  uint8_t repeat);
 #endif

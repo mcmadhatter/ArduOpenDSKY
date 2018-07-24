@@ -44,6 +44,7 @@ static void PrintDateTime(const RtcDateTime& dt);
 
 typedef struct ALARM_PROGRAM_STRUCT
 {
+		int32_t ProgData;
 		int16_t Verb;
 		int16_t Noun;
 		uint8_t Repeat;
@@ -74,6 +75,7 @@ void RTCThreadCallback()
 		{
 				/*Call the program handler */
 				(void)SetProgram(alarmProgram.Verb, alarmProgram.Noun, BRING_PROGRAM_TO_FOREGROUND);
+				(void)GiveNumbersToProgram(alarmProgram.ProgData);
 		}
 
 
@@ -277,9 +279,10 @@ void RtcSetDay(uint8_t day)
  * @param second second of the alarm, or ALARM_IGNORE to ignore
  * @param verb   verb of the program to call when the alarm goes off
  * @param noun   noun of the program to call when the alarm goes off
+ * @param progData data to give to the program
  * @param repeat 1 to repeat, 0 otherwise
  */
-void RtcSetAlarmProgram(uint8_t day, uint8_t hour, uint8_t minute, uint8_t second, uint16_t verb, uint16_t noun,  uint8_t repeat)
+void RtcSetAlarmProgram(uint8_t day, uint8_t hour, uint8_t minute, uint8_t second, uint16_t verb, uint16_t noun, int32_t progData, uint8_t repeat)
 {
 		/* get the current date/time */
 		RtcDateTime now = Rtc.GetDateTime();
@@ -312,12 +315,14 @@ void RtcSetAlarmProgram(uint8_t day, uint8_t hour, uint8_t minute, uint8_t secon
 		{
 				alarmProgram.Second = now.Second();
 		}
+
 		else
 		{
 				alarmProgram.Second = second;
 		}
 		alarmProgram.Noun = noun;
 		alarmProgram.Verb = verb;
+		alarmProgram.ProgData = progData;
 
 		DS3231AlarmOne alarm1(
 				alarmProgram.Day,

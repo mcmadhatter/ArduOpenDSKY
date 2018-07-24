@@ -42,6 +42,7 @@
 #include "Keyboard.h"
 #include "Program.h"
 #include "GPS.h"
+#include "Sound.h"
 
 
 /* ThreadController that will controll all threads */
@@ -58,6 +59,7 @@ void setup()
 		RTCSetup();
 		KeyboardSetup();
 		GPSSetup();
+		SoundSetup();
 }
 
 

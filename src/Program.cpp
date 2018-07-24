@@ -83,7 +83,8 @@ ProgramStruct ProgramTable[] =
 		{ 26,  36,        &V26N36LoadGPSTime,       &V26N36GiveData,     &TimeGetDisplayData,     NOT_RUNNING}, /* Set RTC from GPS */
 		{ 16,  43,        &V16N43ShowGPSPosition,   NULL,                &PositionGetDisplayData, NOT_RUNNING}, /* Show GPS poistion Data */
 		{ 16,  29,        &V16N29ShowIMUGyro,       NULL,                &PositionGetDisplayData, NOT_RUNNING}, /* Show IMU Gyro Data */
-		{ 16,  30,        &V16N30ShowIMUAcel,       NULL,                &PositionGetDisplayData, NOT_RUNNING}  /* Show IMU Acceloromter Data */
+		{ 16,  30,        &V16N30ShowIMUAcel,       NULL,                &PositionGetDisplayData, NOT_RUNNING}, /* Show IMU Acceloromter Data */
+		{ 21,  98,        &V21N98SoundTest,         &V21N98GiveData,     NULL,                    NOT_RUNNING}  /* Sound test */
 };
 
 #define NUM_PROG_TABLE_ENTRIES  (sizeof(ProgramTable)/sizeof(ProgramStruct))

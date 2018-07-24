@@ -400,6 +400,7 @@ ProgramRunStateEnum V37N36GiveData(uint8_t DataIdx,int32_t data)
 		static uint8_t second;
 		static uint16_t verb = 0;
 		static uint16_t noun = 0;
+		static int32_t progData = 0;
 		static uint8_t repeat = 0;
 		switch(DataIdx)
 		{
@@ -437,6 +438,9 @@ ProgramRunStateEnum V37N36GiveData(uint8_t DataIdx,int32_t data)
 				noun = (uint8_t)data;
 				break;
 		case 6:
+				progData = data;
+				break;
+		case 7:
 				if((data <= 1) && (data >= 0))
 				{
 						repeat = (uint8_t)data;
@@ -466,7 +470,7 @@ ProgramRunStateEnum V37N36GiveData(uint8_t DataIdx,int32_t data)
 						Serial.println(" once");
 				}
 #endif
-				RtcSetAlarmProgram( day,  hour,  minute,  second,  verb,  noun,   repeat);
+				RtcSetAlarmProgram( day,  hour,  minute,  second,  verb,  noun, progData,  repeat);
 				return NOT_RUNNING;
 				break;
 		default:
