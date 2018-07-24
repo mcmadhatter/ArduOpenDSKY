@@ -52,11 +52,13 @@ IMU Gyro| Shows to IMU Gyro Data on the 7 segment Display|16|29|Not Used
 IMU Accelerometer | Shows to IMU Accelerometer Data on the 7 segment Display|16|30|Not Used
 Current time | Shows the current time from the RTC on the 7 segment Display|16|36|Not Used
 GPS Position | Shows the openDSKy Latitude (in degrees) Longitude (in degrees) and Altitude (in feet) on the 7 segment Display|16|43| Not Used
+Load Time Manually | Manually set the RTC time via the keypad | 25 | 36| Hour (0 to 23) **Enter** Minute (0 to 59) **Enter** Second (0 to 59) **Enter**
+Load Time From GPS | Sets the RTC time from the GPS, the data entry phase allows an offset from GPS to be used, to help with daylight saving time / timezones | 25 |26 | Offset (-24 to 24) **Enter**
 Bring To Foreground| Brings the program specified in the data entry phase to the Foreground | 30 | Not Used | Verb Number **Enter**  Noun Number **Enter**
-Reset| Resets the program specified in the data entry phase | 32 | Not Used | Verb Number **Enter**  Noun Number
-Terminate| Terminates the program specified in the data entry phase | 34 | Not Used | Verb Number **Enter**  Noun Number
+Reset| Resets the program running in the foreground | 32 | Not Used | Not Used
+Terminate| Terminates the program running in the foreground | 34 | Not Used | Not Used
 Bulb Test| Tests all of the Neopixels and 7 Segments| 35 | Not Used | Not Used
-
+Set Alarm Program| Set an alarm time, and a verb noun to call when the alarm goes off|37|36| day (0-31 0 is today) **Enter** Hour (0 to 23) **Enter** Minute (0 to 59) **Enter** Second (0 to 59) **Enter** Verb **Enter** Noun **Enter**
 
 ## Adding your own programs
 1. Add a new entry to the ProgramTable in Program.cpp . As a minimum this should at least contain a VProgramNumber (verb number) and a program. In the example below the V37N36SetAlarmProg program will called when verb 37 and noun 36 are entered, it can accept data via the V37N36GiveData function, and can provide data for the 7 segment display via the TimeGetDisplayData function. By default the program is not running, and anything that is NULL means that this program does not support that feature.
