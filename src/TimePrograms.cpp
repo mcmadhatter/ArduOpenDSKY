@@ -93,8 +93,8 @@ void P16ThreadCallback(void)
 		TimeProgramDisplayData.Noun = 36;
 		TimeProgramDisplayData.Prog = 0;
 		TimeProgramDisplayData.R1DigitShowMask = 0x3;
-		TimeProgramDisplayData.R1DigitShowMask = 0x3;
-		TimeProgramDisplayData.R1DigitShowMask = 0x3;
+		TimeProgramDisplayData.R2DigitShowMask = 0x3;
+		TimeProgramDisplayData.R3DigitShowMask = 0x3;
 
 		NeoPixelSetState(VERB_PIXEL,GREEN_COLOUR,PIXEL_ON);
 		NeoPixelSetState(NOUN_PIXEL,GREEN_COLOUR,PIXEL_ON);

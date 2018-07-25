@@ -71,27 +71,36 @@ void SevenSegmentThreadCallback()
 						lc.clearDisplay(idx);
 
 				}
-				lc.setChar(0, 0, (displayData->Prog%10)&0xF, false);
-				lc.setChar(0, 1, (displayData->Prog/10)&0xF, false);
-				lc.setChar(0, 2, (displayData->Noun%10)&0xF, false);
-				lc.setChar(0, 3, (displayData->Noun/10)&0xF, false);
-				lc.setChar(0, 4, (displayData->Verb%10)&0xF, false);
-				lc.setChar(0, 5, (displayData->Verb/10)&0xF, false);
+				if((0x3 & displayData->R1DigitShowMask) != 0)
+				{
+						lc.setChar(0, 0, (displayData->Prog%10)&0xF, false);
+						lc.setChar(0, 1, (displayData->Prog/10)&0xF, false);
+				}
+				if((0xC & displayData->R1DigitShowMask) != 0)
+				{
+						lc.setChar(0, 2, (displayData->Noun%10)&0xF, false);
+						lc.setChar(0, 3, (displayData->Noun/10)&0xF, false);
+				}
+				if((0x30 & displayData->R1DigitShowMask) != 0)
+				{
+						lc.setChar(0, 4, (displayData->Verb%10)&0xF, false);
+						lc.setChar(0, 5, (displayData->Verb/10)&0xF, false);
+				}
 
 				if((0x20 & displayData->R1DigitShowMask) == 0x20)
 				{
 						if(displayData->R1 < 0 )
 						{
-								lc.setChar(1, 5, '-', false);
+								lc.setRow(1,0,B00100100);
 						}
 						else
 						{
-								lc.setChar(1, 5, '+', false);
+								lc.setRow(1,0,B01110100);
 						}
 				}
-				for (int i = 0; i < 6; i++)
+				for (int i = 0; i < 5; i++)
 				{
-						if(((1 << i)  & displayData->R1DigitShowMask) != 1)
+						if(((1 << i)  & displayData->R1DigitShowMask) != 0)
 						{
 								lc.setChar(1, (5-i), (displayData->R1 & 0xf), false);
 								displayData->R1/=10;
@@ -105,14 +114,15 @@ void SevenSegmentThreadCallback()
 				{
 						if(displayData->R2 < 0 )
 						{
-								lc.setChar(2, 5, '-', false);
+								lc.setRow(2,0,B00100100);
 						}
 						else
 						{
-								lc.setChar(2, 5, '+', false);
+								lc.setRow(2,0,B01110100);
 						}
 				}
-				for (int i = 0; i < 6; i++)
+
+				for (int i = 0; i < 5; i++)
 				{
 						if(((1 << i)  & displayData->R2DigitShowMask) != 0)
 						{
@@ -128,13 +138,14 @@ void SevenSegmentThreadCallback()
 				{
 						if(displayData->R3 < 0 )
 						{
-								lc.setChar(3, 5, '-', false);
+								lc.setRow(3,0,B00100100);
 						}
 						else
 						{
-								lc.setChar(3, 5, '+', false);
+								lc.setRow(3,0,B01110100);
 						}
 				}
+
 				for (int i = 0; i < 5; i++)
 				{
 						if(((1 << i)  & displayData->R3DigitShowMask) != 0)
