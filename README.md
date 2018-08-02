@@ -17,16 +17,16 @@ The following parts of the OpenDSKY are currently supported
 - Real Time Clock (RTC)
 - Sound
 
-## Should Be Supported But Not Fully Tested Modules
+## Should Work But Not Fully Tested Modules
 - 7 Segment Displays 
 
 # Development environment
 This project has been developed with PlatformIO  - see https://platformio.org/get-started for more information on installing platformIO.
-If you want to use the arduino development environment instead, then rename the src folder to ArduOpenDSKY and it should be possible to open
+If you want to use the arduino development environment instead, then rename the src folder to ArduOpenDSKY and it will be possible to open
 the .ino file and compile/download with the Arduino IDE.
 
 # Required libraries
-The following libraries are required:
+The following libraries for arduino are required:
 
 - TinyGPSPlus by Mikal Hart, this should be available from here https://github.com/mikalhart/TinyGPSPlus
 - digitalWriteFast by Watterott electronic, this should be available from here https://github.com/watterott/Arduino-Libs/tree/master/digitalWriteFast
@@ -120,3 +120,4 @@ ProgramRunStateEnum V16N36ShowRTCTime(ProgramCallStateEnum call)
 # Useful links
 - This contains some really useful information on the verbs nouns and programs in the real Apollo DSKY https://www.ibiblio.org/apollo/ForDummies.html
 - Open DSKY hardware page  https://opendsky.com
+- NASA have made some sound files available https://www.nasa.gov/connect/sounds/index.html
