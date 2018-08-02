@@ -17,8 +17,8 @@ The following parts of the OpenDSKY are currently supported
 - Real Time Clock (RTC)
 - Sound
 
-## Not Currently Supported Modules
-- 7 Segment Displays ( though simulation of the 7 Segment display is available via the serial port)
+## Should Be Supported But Not Fully Tested Modules
+- 7 Segment Displays 
 
 # Development environment
 This project has been developed with PlatformIO  - see https://platformio.org/get-started for more information on installing platformIO.
