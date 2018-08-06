@@ -83,13 +83,16 @@ ProgramRunStateEnum V35BulbTest(ProgramCallStateEnum call)
 		case STOP_PROGRAM:
 		case NUM_CALL_STATES:
 		default:
-				for(uint8_t i = 0; i <NUM_PIXELS; i++)
+				if(V35Thread != NULL)
 				{
-						NeoPixelSetState(i,RAINBOW_COLOUR,PIXEL_OFF);
+						for(uint8_t i = 0; i <NUM_PIXELS; i++)
+						{
+								NeoPixelSetState(i,RAINBOW_COLOUR,PIXEL_OFF);
+						}
+						controll.remove(V35Thread);
+						delete[] V35Thread;
+						V35Thread = NULL;
 				}
-				controll.remove(V35Thread);
-				delete[] V35Thread;
-				V35Thread = NULL;
 				return NOT_RUNNING;
 				break;
 

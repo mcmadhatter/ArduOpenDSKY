@@ -200,11 +200,14 @@ ProgramRunStateEnum V16N43ShowGPSPosition(ProgramCallStateEnum call)
 		case STOP_PROGRAM:
 		case NUM_CALL_STATES:
 		default:
-				ActiveProgram = 0;
-				NeoPixelSetState(TRACKER_PIXEL,WARM_WHITE_COLOUR,PIXEL_OFF);
-				controll.remove(V16N43Thread);
-				delete[] V16N43Thread;
-				V16N43Thread = NULL;
+				if(V16N43Thread != NULL)
+				{
+						ActiveProgram = 0;
+						NeoPixelSetState(TRACKER_PIXEL,WARM_WHITE_COLOUR,PIXEL_OFF);
+						controll.remove(V16N43Thread);
+						delete[] V16N43Thread;
+						V16N43Thread = NULL;
+				}
 				return NOT_RUNNING;
 				break;
 		}
@@ -290,11 +293,14 @@ ProgramRunStateEnum V16N29ShowIMUGyro(ProgramCallStateEnum call)
 		case STOP_PROGRAM:
 		case NUM_CALL_STATES:
 		default:
-				NeoPixelSetState(TRACKER_PIXEL,WARM_WHITE_COLOUR,PIXEL_OFF);
-				controll.remove(V16N29Thread);
-				delete[] V16N29Thread;
-				V16N29Thread = NULL;
-				ActiveProgram = 0;
+				if(V16N29Thread != NULL)
+				{
+						NeoPixelSetState(TRACKER_PIXEL,WARM_WHITE_COLOUR,PIXEL_OFF);
+						controll.remove(V16N29Thread);
+						delete[] V16N29Thread;
+						V16N29Thread = NULL;
+						ActiveProgram = 0;
+				}
 				return NOT_RUNNING;
 				break;
 		}
@@ -383,11 +389,14 @@ ProgramRunStateEnum V16N30ShowIMUAcel(ProgramCallStateEnum call)
 		case STOP_PROGRAM:
 		case NUM_CALL_STATES:
 		default:
-				ActiveProgram = 0;
-				NeoPixelSetState(TRACKER_PIXEL,WARM_WHITE_COLOUR,PIXEL_OFF);
-				controll.remove(V16N30Thread);
-				delete[] V16N30Thread;
-				V16N30Thread = NULL;
+				if(V16N30Thread != NULL)
+				{
+						ActiveProgram = 0;
+						NeoPixelSetState(TRACKER_PIXEL,WARM_WHITE_COLOUR,PIXEL_OFF);
+						controll.remove(V16N30Thread);
+						delete[] V16N30Thread;
+						V16N30Thread = NULL;
+				}
 				return NOT_RUNNING;
 				break;
 		}

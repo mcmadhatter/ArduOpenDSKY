@@ -28,6 +28,7 @@
 #ifndef RTC_H
 #define RTC_H
 
+#include <RtcDS3231.h>
 
 #define LARGEST_HOUR_IN_A_DAY       23U
 #define LARGEST_MINUTE_IN_AN_HOUR   59U
@@ -44,6 +45,7 @@
 #define DoNotRepeat 0x00
 
 
+extern RtcDateTime RTCDateTimeReturnNow(void);
 extern void RtcSetHour(uint8_t hour);
 extern void RtcSetMinute(uint8_t minute);
 extern void RtcSetSecond(uint8_t second);

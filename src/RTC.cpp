@@ -125,6 +125,11 @@ void RTCSetup(void)
 }
 
 
+RtcDateTime RTCDateTimeReturnNow(void)
+{
+		return Rtc.GetDateTime();
+}
+
 /**
  * RtcSetDateTime
  *
