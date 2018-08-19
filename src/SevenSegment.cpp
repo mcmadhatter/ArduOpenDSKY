@@ -54,7 +54,7 @@ LedControl lc=LedControl(12,10,11,4);
 void SevenSegmentThreadCallback()
 {
 		SevenSegmentDisplayStruct* displayData = ProgramGetDisplayData();
-
+		int32_t tempData = 0;
 
 		if(displayData != NULL)
 		{
@@ -76,12 +76,13 @@ void SevenSegmentThreadCallback()
 						lc.setDigit(0, 0, (displayData->Verb/10)&0xF, false);
 				}
 
+				tempData = displayData->R1;
 				if((0x20 & displayData->R1DigitShowMask) == 0x20)
 				{
-						if(displayData->R1 < 0 )
+						if(tempData < 0 )
 						{
 								lc.setRow(1,0,B00100100);
-								displayData->R1 *= -1;
+								tempData *= -1;
 						}
 						else
 						{
@@ -92,20 +93,21 @@ void SevenSegmentThreadCallback()
 				{
 						if(((1 << i)  & displayData->R1DigitShowMask) != 0)
 						{
-								lc.setDigit(1, (5-i), (displayData->R1 % 10), false);
-								displayData->R1/=10;
+								lc.setDigit(1, (5-i), (tempData % 10), false);
+								tempData/=10;
 						}
 						else
 						{
 								lc.setChar(1, (5-i), ' ', false);
 						}
 				}
+				tempData = displayData->R2;
 				if((0x20 & displayData->R2DigitShowMask) == 0x20)
 				{
-						if(displayData->R2 < 0 )
+						if(tempData < 0 )
 						{
 								lc.setRow(2,0,B00100100);
-								displayData->R2 *= -1;
+								tempData *= -1;
 						}
 						else
 						{
@@ -117,20 +119,21 @@ void SevenSegmentThreadCallback()
 				{
 						if(((1 << i)  & displayData->R2DigitShowMask) != 0)
 						{
-								lc.setDigit(2, (5-i), (displayData->R2 % 10), false);
-								displayData->R2/=10;
+								lc.setDigit(2, (5-i), (tempData % 10), false);
+								tempData/=10;
 						}
 						else
 						{
 								lc.setChar(2, (5-i), ' ', false);
 						}
 				}
+				tempData = displayData->R3;
 				if((0x20 & displayData->R3DigitShowMask) == 0x20)
 				{
-						if(displayData->R3 < 0 )
+						if(tempData < 0 )
 						{
 								lc.setRow(3,0,B00100100);
-								displayData->R3 *= -1;
+								tempData *= -1;
 						}
 						else
 						{
@@ -142,8 +145,8 @@ void SevenSegmentThreadCallback()
 				{
 						if(((1 << i)  & displayData->R3DigitShowMask) != 0)
 						{
-								lc.setDigit(3, (5-i), (displayData->R3 % 10), false);
-								displayData->R3/=10;
+								lc.setDigit(3, (5-i), (tempData % 10), false);
+								tempData/=10;
 						}
 						else
 						{
