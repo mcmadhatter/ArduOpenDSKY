@@ -44,6 +44,9 @@
 #include "Neopixels.h"
 #include "GPS.h"
 
+
+//#define DEBUG
+
 TinyGPSPlus gps;
 
 Thread* GPSThread = new Thread();

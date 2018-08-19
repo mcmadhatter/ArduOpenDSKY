@@ -34,6 +34,7 @@
 #include "TimePrograms.h"
 #include "PositionPrograms.h"
 #include "main.h"
+#include "Launch.h"
 
 #define MAX_NUMBER_ENTRIES 10
 #define DEBUG
@@ -73,7 +74,7 @@ static KeybordModeEnum keyboardMode;
 ProgramStruct ProgramTable[] =
 {
 		/*verb  noun       Program Function        Set Data Function    Get Disp Data Function   Run State     Description */
-		{ 35,  NOT_USED,  &V35BulbTest,             NULL,                NULL,                    NOT_RUNNING}, /* Bulb test */
+		{ 35,  NOT_USED,  &V35BulbTest,             NULL,                &DiagnosticGetDisplayData,    NOT_RUNNING}, /* Bulb test */
 		{ 30,  NOT_USED,  &V30BringToForeground,    &V30GiveData,        NULL,                    NOT_RUNNING}, /* Bring To foreground */
 		{ 34,  NOT_USED,  &V34Terminate,            NULL,                NULL,                    NOT_RUNNING}, /* Terminate Program */
 		{ 32,  NOT_USED,  &V32Reset,                NULL,                NULL,                    NOT_RUNNING}, /* Reset Program */
@@ -84,7 +85,10 @@ ProgramStruct ProgramTable[] =
 		{ 16,  43,        &V16N43ShowGPSPosition,   NULL,                &PositionGetDisplayData, NOT_RUNNING}, /* Show GPS poistion Data */
 		{ 16,  29,        &V16N29ShowIMUGyro,       NULL,                &PositionGetDisplayData, NOT_RUNNING}, /* Show IMU Gyro Data */
 		{ 16,  30,        &V16N30ShowIMUAcel,       NULL,                &PositionGetDisplayData, NOT_RUNNING}, /* Show IMU Acceloromter Data */
-		{ 21,  98,        &V21N98SoundTest,         &V21N98GiveData,     NULL,                    NOT_RUNNING}  /* Sound test */
+		{ 21,  98,        &V21N98SoundTest,         &V21N98GiveData,     NULL,                    NOT_RUNNING}, /* Sound test */
+		{ 37,  02,        &V37N02Launch,            &V37N02GiveData,     &LaunchGetDisplayData,   NOT_RUNNING},  /* Launch Program */
+		{ 16,  62,        &V37N02Launch,            NULL,                &LaunchGetDisplayData,   NOT_RUNNING},  /* Launch Program  v/a/h*/
+		{ 16,  65,        &V16N65Launch,            NULL,                &LaunchGetDisplayData,   NOT_RUNNING}  /* Monitor Time Since Launch*/
 };
 
 #define NUM_PROG_TABLE_ENTRIES  (sizeof(ProgramTable)/sizeof(ProgramStruct))

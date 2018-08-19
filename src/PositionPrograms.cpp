@@ -237,8 +237,8 @@ void V16N29ThreadCallback(void)
 		PositionProgramDisplayData.Noun = 29;
 		PositionProgramDisplayData.Prog = 0;
 		PositionProgramDisplayData.R1DigitShowMask = 0x3F;
-		PositionProgramDisplayData.R1DigitShowMask = 0x3F;
-		PositionProgramDisplayData.R1DigitShowMask = 0x3F;
+		PositionProgramDisplayData.R2DigitShowMask = 0x3F;
+		PositionProgramDisplayData.R3DigitShowMask = 0x3F;
 
 }
 
@@ -331,8 +331,8 @@ void V16N30ThreadCallback(void)
 		PositionProgramDisplayData.Noun = 30;
 		PositionProgramDisplayData.Prog = 0;
 		PositionProgramDisplayData.R1DigitShowMask = 0x3F;
-		PositionProgramDisplayData.R1DigitShowMask = 0x3F;
-		PositionProgramDisplayData.R1DigitShowMask = 0x3F;
+		PositionProgramDisplayData.R2DigitShowMask = 0x3F;
+		PositionProgramDisplayData.R3DigitShowMask = 0x3F;
 
 		NeoPixelSetState(VERB_PIXEL,GREEN_COLOUR,PIXEL_ON);
 		NeoPixelSetState(NOUN_PIXEL,GREEN_COLOUR,PIXEL_ON);
