@@ -27,5 +27,5 @@ extern ProgramRunStateEnum V35BulbTest(ProgramCallStateEnum call);
 extern void V35ThreadCallback();
 extern ProgramRunStateEnum V21N98GiveData(uint8_t dataIdx,int32_t data);
 extern ProgramRunStateEnum V21N98SoundTest(ProgramCallStateEnum call);
-
+extern SevenSegmentDisplayStruct* DiagnosticGetDisplayData(void);
 #endif

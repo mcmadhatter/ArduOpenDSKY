@@ -34,7 +34,13 @@
 
 
 Thread* V35Thread = NULL;
+static SevenSegmentDisplayStruct DiagnosticProgramDisplayData;
 
+
+SevenSegmentDisplayStruct* DiagnosticGetDisplayData(void)
+{
+		return &DiagnosticProgramDisplayData;
+}
 
 /**
  * V35BulbTest
@@ -110,6 +116,17 @@ ProgramRunStateEnum V35BulbTest(ProgramCallStateEnum call)
 void V35ThreadCallback(void)
 {
 		uint16_t moduleTime = (millis()%12000);
+
+		DiagnosticProgramDisplayData.R1DigitShowMask = 0x3F;
+		DiagnosticProgramDisplayData.R2DigitShowMask = 0x3F;
+		DiagnosticProgramDisplayData.R3DigitShowMask = 0x3F;
+		DiagnosticProgramDisplayData.Prog = 0;
+		DiagnosticProgramDisplayData.Noun = 0;
+		DiagnosticProgramDisplayData.Verb = 35;
+		DiagnosticProgramDisplayData.R1 = 12345;
+		DiagnosticProgramDisplayData.R2 = -67890;
+		DiagnosticProgramDisplayData.R3 = -91827;
+
 
 		for(uint8_t i = 0; i <NUM_PIXELS; i++)
 		{
