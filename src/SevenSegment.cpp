@@ -60,31 +60,20 @@ void SevenSegmentThreadCallback()
 		{
 #ifndef SERIAL_DEBUG
 
-/* I have no idea if this 7 segment code works yet, as I am still waiting on my
-   delivery of the 7 segment displays. I had a request to show my thoughts on how
-   it would be implemented - so here it is. I have not idea of the indexs are
-   correct, or even if there are extra steps needed aside from setting digits. I
-     would be much obliged for a bit of help from someone who has their 7 segment
-     displays*/
-				for(uint8_t idx = 0U; idx < 4U; idx++)
-				{
-						lc.clearDisplay(idx);
-
-				}
 				if((0x3 & displayData->R1DigitShowMask) != 0)
 				{
-						lc.setChar(0, 0, (displayData->Prog%10)&0xF, false);
-						lc.setChar(0, 1, (displayData->Prog/10)&0xF, false);
+						lc.setDigit(0, 3, (displayData->Prog%10)&0xF, false);
+						lc.setDigit(0, 2, (displayData->Prog/10)&0xF, false);
 				}
 				if((0xC & displayData->R1DigitShowMask) != 0)
 				{
-						lc.setChar(0, 2, (displayData->Noun%10)&0xF, false);
-						lc.setChar(0, 3, (displayData->Noun/10)&0xF, false);
+						lc.setDigit(0, 5, (displayData->Noun%10)&0xF, false);
+						lc.setDigit(0, 4, (displayData->Noun/10)&0xF, false);
 				}
 				if((0x30 & displayData->R1DigitShowMask) != 0)
 				{
-						lc.setChar(0, 4, (displayData->Verb%10)&0xF, false);
-						lc.setChar(0, 5, (displayData->Verb/10)&0xF, false);
+						lc.setDigit(0, 1, (displayData->Verb%10)&0xF, false);
+						lc.setDigit(0, 0, (displayData->Verb/10)&0xF, false);
 				}
 
 				if((0x20 & displayData->R1DigitShowMask) == 0x20)
@@ -92,6 +81,7 @@ void SevenSegmentThreadCallback()
 						if(displayData->R1 < 0 )
 						{
 								lc.setRow(1,0,B00100100);
+								displayData->R1 *= -1;
 						}
 						else
 						{
@@ -102,7 +92,7 @@ void SevenSegmentThreadCallback()
 				{
 						if(((1 << i)  & displayData->R1DigitShowMask) != 0)
 						{
-								lc.setChar(1, (5-i), (displayData->R1 & 0xf), false);
+								lc.setDigit(1, (5-i), (displayData->R1 % 10), false);
 								displayData->R1/=10;
 						}
 						else
@@ -115,6 +105,7 @@ void SevenSegmentThreadCallback()
 						if(displayData->R2 < 0 )
 						{
 								lc.setRow(2,0,B00100100);
+								displayData->R2 *= -1;
 						}
 						else
 						{
@@ -126,7 +117,7 @@ void SevenSegmentThreadCallback()
 				{
 						if(((1 << i)  & displayData->R2DigitShowMask) != 0)
 						{
-								lc.setChar(2, (5-i), (displayData->R2 & 0xf), false);
+								lc.setDigit(2, (5-i), (displayData->R2 % 10), false);
 								displayData->R2/=10;
 						}
 						else
@@ -139,6 +130,7 @@ void SevenSegmentThreadCallback()
 						if(displayData->R3 < 0 )
 						{
 								lc.setRow(3,0,B00100100);
+								displayData->R3 *= -1;
 						}
 						else
 						{
@@ -150,7 +142,7 @@ void SevenSegmentThreadCallback()
 				{
 						if(((1 << i)  & displayData->R3DigitShowMask) != 0)
 						{
-								lc.setChar(3, (5-i), (displayData->R3 & 0xf), false);
+								lc.setDigit(3, (5-i), (displayData->R3 % 10), false);
 								displayData->R3/=10;
 						}
 						else
