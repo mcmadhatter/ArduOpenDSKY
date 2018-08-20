@@ -16,9 +16,9 @@ The following parts of the OpenDSKY are currently supported
 - Bulbs (Both RGB and RGBW neopixels)
 - Real Time Clock (RTC)
 - Sound
-
-## Should Work But Not Fully Tested Modules
 - 7 Segment Displays 
+
+For help with board bringup see the wiki link at the top of the github page.
 
 # Development environment
 This project has been developed with PlatformIO  - see https://platformio.org/get-started for more information on installing platformIO.
