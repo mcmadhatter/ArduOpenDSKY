@@ -51,7 +51,8 @@ IMU Gyro| Shows to IMU Gyro Data on the 7 segment Display|16|29|Not Used
 IMU Accelerometer | Shows to IMU Accelerometer Data on the 7 segment Display|16|30|Not Used
 Current time | Shows the current time from the RTC on the 7 segment Display|16|36|Not Used
 GPS Position | Shows the openDSKy Latitude (in degrees) Longitude (in degrees) and Altitude (in feet) on the 7 segment Display|16|43| Not Used
-Time To/From Launch **Coming Soon** | Shows the time to or from launch on the 7 segment Display|16|65| Not Used
+Time To/From Launch  | Shows the time to or from launch on the 7 segment Display|16|65| Not Used
+Launch parameters  | Shows an approximation of accel, velocity and altitude during launch on the 7 segment Display|16|62| Not Used
 Play Sound | Plays the specified sound | 21 | 98 | Sound to play (0 to 2999) **Enter**
 Load Time Manually | Manually set the RTC time via the keypad | 25 | 36| Hour (0 to 23) **Enter** Minute (0 to 59) **Enter** Second (0 to 59) **Enter**
 Load Time From GPS | Sets the RTC time from the GPS, the data entry phase allows an offset from GPS to be used, to help with daylight saving time / timezones | 25 |26 | Offset (-24 to 24) **Enter**
