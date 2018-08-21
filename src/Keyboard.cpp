@@ -35,7 +35,7 @@
 #include "main.h"
 
 //#define SERIAL_KEYBOARD
-
+//#define DEBUG
 static KeysEnum currentKey;
 static KeysEnum previousKey;
 static KeysEnum pressedKey;

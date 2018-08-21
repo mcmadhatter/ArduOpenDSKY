@@ -32,5 +32,5 @@ extern void V16N65LaunchThreadCallback(void);
 extern ProgramRunStateEnum V16N65Launch(ProgramCallStateEnum call);
 extern ProgramRunStateEnum V37N02GiveData(uint8_t dataIdx,int32_t data);
 extern ProgramRunStateEnum V37N02Launch(ProgramCallStateEnum call);
-
+extern void LaunchSetup(void);
 #endif

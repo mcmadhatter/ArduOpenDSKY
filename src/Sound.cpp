@@ -61,7 +61,7 @@ typedef enum SOUND_PACKET_BYTES_ENUM
 		NUM_SOUND_BYTES
 
 }SoundPacketBytesEnum;
-SoftwareSerial soundSerial(8, 5); // RX, TX
+SoftwareSerial soundSerial(4, 5); // RX, TX
 static uint16_t SoundCalculateCheckum(void);
 static void SendPacket(void);
 static bool SingleCommand(uint8_t commndNumber);
@@ -238,14 +238,14 @@ void SoundThreadCallback(void)
 				if(toggleState)
 				{
 						toggleState = false;
-						digitalWriteFast(9, LOW);
+						pinMode(9, OUTPUT);
 						currentTrack = currentTrack + 1;
 						currentTrack %= NUM_TRACKS;
 				}
 				else
 				{
 						toggleState = true;
-						digitalWriteFast(9, HIGH);
+						pinMode(9, INPUT);
 				}
 		}
 #endif

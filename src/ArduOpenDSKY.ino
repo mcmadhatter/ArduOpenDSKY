@@ -1,5 +1,5 @@
 /*
- * Main.cpp
+ * ArduinoOpenDSKY.ino
  *
  * This file is part of ArduOpenDSKY - the open source software for
  * the OpenDSKY.
@@ -43,6 +43,7 @@
 #include "Program.h"
 #include "GPS.h"
 #include "Sound.h"
+#include "Launch.h"
 
 
 /* ThreadController that will controll all threads */
@@ -60,6 +61,9 @@ void setup()
 		KeyboardSetup();
 		GPSSetup();
 		SoundSetup();
+
+		/* Program Setup functions */
+		LaunchSetup();
 }
 
 

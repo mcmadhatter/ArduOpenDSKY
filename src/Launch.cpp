@@ -23,28 +23,30 @@
  *
  */
 
- #include <Wire.h>
- #include <Thread.h>
- #include <ThreadController.h>
- #include <TimerOne.h>
-
+#include <Wire.h>
+#include <Thread.h>
+#include <ThreadController.h>
+#include <TimerOne.h>
+#include <EEPROM.h>
 
 /* Open DSKY headers */
- #include "SevenSegment.h"
- #include "Neopixels.h"
- #include "Program.h"
- #include "Sound.h"
- #include "RTC.h"
- #include "GPS.h"
+#include "SevenSegment.h"
+#include "Neopixels.h"
+#include "Program.h"
+#include "Sound.h"
+#include "RTC.h"
+#include "GPS.h"
 #include "Launch.h"
- #include "DiagnosticPrograms.h"
- #include "main.h"
+#include "DiagnosticPrograms.h"
+#include "main.h"
 
 static SevenSegmentDisplayStruct LaunchDisplayData;
 static RtcDateTime LaunchTime;
-
+static bool V37N02Foreground = false;
+static bool LaunchTrackPlayed = false;
 Thread* V37N02Thread = NULL;
 Thread* V16N65Thread = NULL;
+
 
 SevenSegmentDisplayStruct* LaunchGetDisplayData(void)
 {
@@ -59,13 +61,13 @@ SevenSegmentDisplayStruct* LaunchGetDisplayData(void)
  */
 void V37N02ThreadCallback(void)
 {
-		static uint32_t lastMillis = millis();
+		static uint32_t lastMillis = 0;
 		static float velocity = 0.0;
 		static float accel = 0.0;
 		static float accelFactor = 0.06;
 		static float height = 0.0;
 
-
+		uint32_t currMillis = (uint32_t)millis();
 		RtcDateTime ActionTime = LaunchTime;
 		RtcDateTime NowTime = RTCDateTimeReturnNow();
 		ActionTime -= 10;
@@ -73,32 +75,40 @@ void V37N02ThreadCallback(void)
 
 		if(LaunchTime.TotalSeconds() > NowTime.TotalSeconds())
 		{
+#ifdef DEBUG
 				Serial.println("Count Down");
+#endif
 				RtcDateTime ClockTime = RtcDateTime( LaunchTime.TotalSeconds() - NowTime.TotalSeconds());
-				LaunchDisplayData.R1 = (int32_t)ClockTime.Hour() * -1;
-				LaunchDisplayData.R2 = (int32_t)ClockTime.Minute()* -1;
-				LaunchDisplayData.R3 = ((int32_t)ClockTime.Second() * -100 ) - ((100 - millis())%100);
-				lastMillis = millis();
+
+				lastMillis = currMillis;
 				velocity = 0.0;
 				accel = 0.0;
-				LaunchDisplayData.Verb = 75;
-				LaunchDisplayData.Noun = 00;
-				LaunchDisplayData.Prog = 02;
+				if(V37N02Foreground)
+				{
+						LaunchDisplayData.Verb = 75;
+						LaunchDisplayData.Noun = 00;
+						LaunchDisplayData.Prog = 02;
+						LaunchDisplayData.R1 = (int32_t)ClockTime.Hour() * -1;
+						LaunchDisplayData.R2 = (int32_t)ClockTime.Minute()* -1;
+						LaunchDisplayData.R3 = (ClockTime.Second() * -100 ) + (((currMillis - lastMillis)/10)%100);
+				}
 
 				if((LaunchTime.TotalSeconds() - 6) == NowTime.TotalSeconds() )
 				{
-
-						PlayTrack(COUNTDOWN);
-						Serial.println("T -6");
-
-
+						if(!LaunchTrackPlayed)
+						{
+								PlayTrack(COUNTDOWN);
+								LaunchTrackPlayed = true;
+						}
 				}
 		}
 		else if(LaunchTime.TotalSeconds() == NowTime.TotalSeconds())
 		{
 				velocity = 0.0;
 				accel = 4.0;
+#ifdef DEBUG
 				Serial.println("Lift Off");
+#endif
 		}
 		else
 		{
@@ -134,17 +144,23 @@ void V37N02ThreadCallback(void)
 						/* do nothing */
 				}
 
-				LaunchDisplayData.R1 = (int32_t)velocity;
-				LaunchDisplayData.R2 = (int32_t)accel;
-				LaunchDisplayData.R3 = (int32_t)height;
-				LaunchDisplayData.Prog = 11;
-				LaunchDisplayData.Verb = 06;
-				LaunchDisplayData.Noun = 62;
+				if(V37N02Foreground)
+				{
+						LaunchDisplayData.R1 = (int32_t)velocity;
+						LaunchDisplayData.R2 = (int32_t)accel;
+						LaunchDisplayData.R3 = (int32_t)height;
+						LaunchDisplayData.Prog = 11;
+						LaunchDisplayData.Verb = 06;
+						LaunchDisplayData.Noun = 62;
+				}
 
 		}
-		LaunchDisplayData.R1DigitShowMask = 0x3F;
-		LaunchDisplayData.R2DigitShowMask = 0x3F;
-		LaunchDisplayData.R3DigitShowMask = 0x3F;
+		if(V37N02Foreground)
+		{
+				LaunchDisplayData.R1DigitShowMask = 0x3F;
+				LaunchDisplayData.R2DigitShowMask = 0x3F;
+				LaunchDisplayData.R3DigitShowMask = 0x3F;
+		}
 }
 
 /**
@@ -155,9 +171,13 @@ void V37N02ThreadCallback(void)
  */
 ProgramRunStateEnum V37N02GiveData(uint8_t dataIdx,int32_t data)
 {
+		uint8_t* LauchTimeBytePtr = (uint8_t*)&LaunchTime;;
+
+
 		LaunchTime =  RTCDateTimeReturnNow();
 		LaunchTime += (uint32_t)(data);
 
+#ifdef DEBUG
 		Serial.print("Now: ");
 		Serial.print(RTCDateTimeReturnNow().Hour());
 		Serial.print(":");
@@ -171,12 +191,20 @@ ProgramRunStateEnum V37N02GiveData(uint8_t dataIdx,int32_t data)
 		Serial.print(LaunchTime.Minute());
 		Serial.print(":");
 		Serial.println(LaunchTime.Second());
+#endif
+
+		/* Save the launch time to the EEPROM */
+		for(uint16_t Idx; Idx < sizeof(LaunchTime); Idx++, LauchTimeBytePtr++)
+		{
+				EEPROM.update(Idx, *LauchTimeBytePtr);
+		}
 		return FOREGROUND;
 }
 
 
 ProgramRunStateEnum V37N02Launch(ProgramCallStateEnum call)
 {
+		V37N02Foreground = false;
 		switch(call)
 		{
 		case START_PROGRAM:
@@ -193,7 +221,7 @@ ProgramRunStateEnum V37N02Launch(ProgramCallStateEnum call)
 				LaunchDisplayData.R2DigitShowMask = 0x3F;
 				LaunchDisplayData.R3DigitShowMask = 0x3F;
 
-
+				V37N02Foreground = true;
 				/* Check if the thread already exists before we try to create it. */
 				if(V37N02Thread == NULL)
 				{
@@ -305,7 +333,7 @@ ProgramRunStateEnum V16N65Launch(ProgramCallStateEnum call)
 						V16N65Thread->setInterval(100);
 						controll.add(V16N65Thread);
 				}
-
+				LaunchTrackPlayed = false;
 				return FOREGROUND;
 				break;
 
@@ -326,4 +354,15 @@ ProgramRunStateEnum V16N65Launch(ProgramCallStateEnum call)
 		}
 
 		return NOT_RUNNING;
+}
+
+
+void LaunchSetup(void)
+{
+		uint8_t* LauchTimeBytePtr = (uint8_t*)&LaunchTime;
+		/* Save the launch time to the EEPROM */
+		for(uint16_t Idx; Idx < sizeof(LaunchTime); Idx++, LauchTimeBytePtr++)
+		{
+				*LauchTimeBytePtr = EEPROM.read(Idx);
+		}
 }
