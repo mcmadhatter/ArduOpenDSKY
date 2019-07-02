@@ -58,71 +58,46 @@ void V16N43ThreadCallback(void)
 		}
 		double lat = GPSGetLatitude();
 		double lon = GPSGetLongitude();
-		double alt = GPSGetAltitude();
-
-		int32_t latdec = static_cast<int32_t>(lat);
-		int32_t londec = static_cast<int32_t>(lon);
-		int32_t altdec = static_cast<int32_t>(alt);
-		int32_t minorDigits;
+    int32_t mag;
 
 		/* no decimal place, so use a blank instead of decimal. This means we need
 		   to work out how many digits can be shown */
-		if(abs(latdec) > 99)
+		if(abs(lat) >= 100.0)
 		{
 				PositionProgramDisplayData.R1DigitShowMask = 0x3D;
-				latdec *= 100;
-				lat*=10.0;
-				minorDigits  = static_cast<int32_t>(lat);
-				latdec += (minorDigits%10);
-
+        mag = 10;
 		}
-		else if(abs(latdec) > 9)
+		else if(abs(lat) >= 10.0)
 		{
 				PositionProgramDisplayData.R1DigitShowMask = 0x3B;
-				latdec *= 1000;
-				lat*=100.0;
-				minorDigits  = static_cast<int32_t>(lat);
-				latdec += (minorDigits%100);
+        mag = 100;
 		}
 		else
 		{
 				PositionProgramDisplayData.R1DigitShowMask = 0x37;
-				latdec *= 10000;
-				lat*=1000.0;
-				minorDigits  = static_cast<int32_t>(lat);
-				latdec += (minorDigits%1000);
+        mag = 1000;
 		}
+  	PositionProgramDisplayData.R1 = (static_cast<int32_t>(lat * (double)mag)%mag) + (static_cast<int32_t>(lat) * mag);
 
-		if(abs(londec) > 99)
+		if(abs(lon) >= 100.0)
 		{
-				PositionProgramDisplayData.R1DigitShowMask = 0x3D;
-				londec *= 100;
-				lon*=10.0;
-				minorDigits  = static_cast<int32_t>(lon);
-				londec += (minorDigits%10);
-
+				PositionProgramDisplayData.R2DigitShowMask = 0x3D;
+        mag = 10;
 		}
-		else if(abs(londec) > 9)
+		else if(abs(lon) >= 10.0)
 		{
-				PositionProgramDisplayData.R1DigitShowMask = 0x3B;
-				londec *= 1000;
-				lon*=100.0;
-				minorDigits  = static_cast<int32_t>(lon);
-				londec += (minorDigits%100);
+				PositionProgramDisplayData.R2DigitShowMask = 0x3B;
+        mag = 100;
 		}
 		else
 		{
-				PositionProgramDisplayData.R1DigitShowMask = 0x37;
-				londec *= 10000;
-				lon*=1000.0;
-				minorDigits  = static_cast<int32_t>(lon);
-				londec += (minorDigits%1000);
+				PositionProgramDisplayData.R2DigitShowMask = 0x37;
+        mag = 1000;
 		}
+		PositionProgramDisplayData.R2 = (static_cast<int32_t>(lon * (double)mag)%mag) + (static_cast<int32_t>(lon) * mag);
 
-		PositionProgramDisplayData.R1 = latdec;
-		PositionProgramDisplayData.R2 = londec;
-		PositionProgramDisplayData.R3 = (altdec%10000);
-
+  	PositionProgramDisplayData.R3 = static_cast<int32_t>(GPSGetAltitude())%10000;
+    PositionProgramDisplayData.R3DigitShowMask = 0x3F;
 
 		PositionProgramDisplayData.Verb = 16;
 		PositionProgramDisplayData.Noun = 43;
